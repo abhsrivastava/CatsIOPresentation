@@ -9,6 +9,6 @@ lazy val root = (project in file(".")).
     libraryDependencies ++= Seq(
       "org.typelevel" %% "cats-effect" % "1.0.0",
       "org.tpolecat" %% "doobie-core" % "0.5.3",
-      "org.tpolecat" %% "doobie-h2" % "0.5.3"       
+      "org.tpolecat" %% "doobie-h2" % "0.5.3"
     )
   )
