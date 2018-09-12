@@ -24,11 +24,9 @@ object DoobieEx1 extends App {
         _ <- insert("foo", 10)
         _ <- insert("bar", 20)
         _ <- insert("baz", 30)
-    } yield()
-    // create table and insert data
-    program.transact(xa).unsafeRunSync
+        result <- sql"""select id, name, age from person""".query[Person].list
+    } yield result
     // query data
-    val query = sql"""select id, name, age from person""".query[Person]
-    val result = query.list.transact(xa).unsafeRunSync
+    val result = program.transact(xa).unsafeRunSync
     result.foreach(println)
 }
