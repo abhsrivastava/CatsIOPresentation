@@ -6,7 +6,6 @@ import org.http4s._, org.http4s.dsl.io._
 import scala.concurrent.ExecutionContext.Implicits.global
 
 object Http4sEx1 extends IOApp {
-    implicit val cs: ContextShift[IO] = IO.contextShift(global)
     val helloWorldService = HttpService[IO] {
     case GET -> Root / "hello" / name =>
         Ok(s"Hello, $name.")
