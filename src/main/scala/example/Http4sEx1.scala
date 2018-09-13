@@ -1,6 +1,5 @@
 import cats.implicits._
 import org.http4s.server.blaze._
-import org.http4s.implicits._
 import org.http4s.server.Router
 import cats.effect._
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -16,4 +15,5 @@ object Http4sEx1 extends App {
     val httpApp : HttpApp[IO] = httpRoute.orNotFound
     val builder = BlazeServerBuilder[IO].bindHttp(8080, "localhost").withHttpApp(httpApp).start
     val server = builder.unsafeRunSync()
+
 }
