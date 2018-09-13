@@ -4,13 +4,17 @@ import org.http4s.implicits._
 import org.http4s.server.Router
 import cats.effect._
 import scala.concurrent.ExecutionContext.Implicits.global
-import org.http4s._, org.http4s.dsl.io._
+import org.http4s._
+import org.http4s.implicits._
 
 object Http4sEx1 extends App {
     implicit val cs: ContextShift[IO] = IO.contextShift(global)
-    val helloWorldService = HttpService[IO] {
-    case GET -> Root / "hello" / name =>
-        Ok(s"Hello, $name.")
+    val helloWorldService = {
+        import org.http4s.dsl.io._
+        HttpService[IO] {
+            case GET -> Root / "hello" / name =>
+                Ok(s"Hello, $name.")
+        }
     }
     val httpRoute = Router("/" -> helloWorldService)
     val httpApp : HttpApp[IO] = httpRoute.orNotFound
